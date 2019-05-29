@@ -2,7 +2,7 @@
     box-sizing: border-box;
   }
   body {
-    background-image: url("https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?cs=srgb&dl=astrology-astronomy-background-image-956981.jpg&fm=jpg");
+    background-color: white;
     font-size: 24px;
     color: white;
  
@@ -22,7 +22,7 @@
   text-align: left;
   justify-content: space-evenly;
   padding: 20px;
-  border-width: 15px solid darkblue;   
+    
   }
 
   header {
@@ -41,7 +41,7 @@
   height: 100px;
   align-items: center;  
   margin: 10px;
-  background: linear-gradient(90deg, rgba(22,34,37,1) 0%, rgba(221,220,226,1) 50%, rgba(22,34,37,1) 100%); 
+  background: rgb(61, 61, 61)
 }
 
  #quiz-title {
@@ -76,13 +76,13 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: rgba(37, 40, 73, 0.397);
+    background-color: rgb(61, 61, 61);
     padding: 5px;
     margin: 5px;
   } 
 
   .answers {
-    background-color: #364570;
+    background-color: rgb(61, 61, 61);
   }
 
   
