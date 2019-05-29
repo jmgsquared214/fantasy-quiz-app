@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Fantasy Quiz App</title>
+  <meta charset ="utf-8">
+  <meta name="description" content="Fantasy Quiz App">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header role = "banner">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg" alt="Star Wars Logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Starfleet_logo_circle_black.svg" alt="Star Trek Logo">
+        <img src="https://i.pinimg.com/474x/8e/a0/53/8ea0536141a6df0a4e8d18c351d8d500--elegant-designs-lord-of-the-rings.jpg"  alt="Lord of the Rings Logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/MarvelLogo.svg" alt="Marvel Logo">  
+    </header>
+              
+    <main class="main content" role="main">
+                   
+    <form id ="quizzlet">
+      <h1 id="quiz-title"> Fantasy Quiz App </h1>
+      <section class ="questions">
+          <h4>Question <span id="js-question-number">1</span></h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+    
+          <input type="radio" class="options" name="question1" value="answer1"> Star Wars<br>
+          <input type="radio" class="options" name="question1" value="answer2"> Star Trek<br>
+          <input type="radio" class="options" name="question1" value="answer3"> Lord of the Rings<br>
+          <input type="radio" class="options" name="question1" value="answer4"> Marvel<br>
+        </section> 
+      <section class ="questions">    
+            <!-----temp link before pages are dynamic----->
+      <button type= "submit" class="verify"><a href="/feedback.html">Verify</a></button>
+        </section>
+     
+    
+    </form>
+    
+        <section class ="progress"><p>Question <span class="js-question-number">1</span> of 10.</p></section>
+    
+        
+   
+  
+  </main>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
