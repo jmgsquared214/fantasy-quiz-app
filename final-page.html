@@ -22,37 +22,19 @@
                    
     <form id ="quizzlet">
       <h1 id="quiz-title"> Quiz Name </h1>
-      <section class ="answers">
-         
-
-        
-            <p>You are correct!</p>
-            <p> The correct answer is <span class="item-answer">XXXX</span></p>
-        
-      </section>
-        <section class="questions">
-        <h4>Question <span id="js-question-number">X</span></h4>
-
-          <p>re-iteration of the question text goes here. </p>
-    
-          
-        </section> 
-      <section class ="questions">  
-          <!---- toggles on last item to say 'restart quiz' -->  
-      <button type= "submit" class="next">Next Question</button>
-        </section>
      
-    
-    </form>
    
-        <section class ="progress">
-            <p>Question <span class="js-question-number">X</span> of 10.</p>
-            <p>So far you have gotten <span class="js-question-percentage">X%</span>correct.</p>
+        <section>
+            <p>You Finished!</p>
+            <p>You got <span class="js-question-percentage">X%</span> correct.</p>
             <p class ="js-response">Commentary on progress goes here.</p>
         </section>
       
-   
-  
+        <section class ="questions">  
+                <!---- toggles on last item to say 'restart quiz' -->  
+            <button type= "submit" class="next">Restart Quiz</button>
+              </section>
+            </form>
   </main>
 
 
