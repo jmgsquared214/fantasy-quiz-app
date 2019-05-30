@@ -11,18 +11,18 @@
   }
 
   section {
-  background-color: black;
+  background-color: rgba(9, 11, 29, 0.651);
   width: 33%;
   display: flex;
   flex-direction:column;
   align-items: center;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   margin-left: auto;
   margin-right: auto;
   text-align: left;
-  justify-content: space-evenly;
-  padding: 20px;
-  border-width: 15px solid darkblue;   
+  /*justify-content: space-evenly;*/
+  padding: 10px;
+   
   }
 
   header {
@@ -53,6 +53,7 @@
   .offer-to-start-quiz{
     padding-top: 20px;
     padding-bottom: 20px;
+    text-align: center;
   }
 
   .questions {
@@ -72,17 +73,30 @@
 
   .progress {
     width: 100%;
-    display: flex;
+    display: block;
+    text-align: center;
+    /*display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    
     background-color: rgba(37, 40, 73, 0.397);
-    padding: 5px;
-    margin: 5px;
+    /*padding: 5px;*/
+    /*margin: 5px;*/
   } 
+
+  
 
   .answers {
     background-color: #364570;
   }
 
-  
+  /*media sizing full screen
+  width: 33%; 
+
+  media sizing table
+  width: 50%;
+
+  phone
+  width: 90%;
+
+  */
