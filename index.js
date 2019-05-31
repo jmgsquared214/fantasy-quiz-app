@@ -27,6 +27,7 @@ function handleStart(){
         event.preventDefault();
         console.log('`handleStartingQuiz` ran');
         renderQuestion(1);
+      
         
       });
     }
@@ -36,53 +37,71 @@ function handleStart(){
 //function that shows the question
 function generateQuestion(id){
   //need to add 1 each time
+    
+    console.log('generateQuestion ran');
     const theQuestion = QUESTIONS.find(item => item.number === id);
     console.log(theQuestion);
-    console.log('generateQuestion ran');
+    
     return `
     <section class ="js-questions questions">
-          <h4>Question <span id="js-question-number">${theQuestion.number}</span></h4>
-          <p>${theQuestion.name}</p>
-          <ul>
-          <li> <input type="radio" class="options" value="Star Wars"> Star Wars</li>
-          <li><input type="radio" class="options"  value="Star Trek"> Star Trek</li>
-          <li><input type="radio" class="options"  value="LOTR"> Lord of the Rings</li>
-          <li><input type="radio" class="options"  value="Marvel"> Marvel</li>
-          </ul>
-        </section> 
-      <section class ="verify">    
-        <button type="submit" id="verify">Verify</button>
-      </section>`; 
+        <h4>Question <span id="js-question-number">${theQuestion.number}</span></h4>
+        <p>${theQuestion.name}</p>
+        <ul>
+        <li><input type="radio" class="options" name="answerOption" value="Star Wars"> Star Wars</li>
+        <li><input type="radio" class="options" name="answerOption" value="Star Trek"> Star Trek</li>
+        <li><input type="radio" class="options" name="answerOption" value="LOTR"> Lord of the Rings</li>
+        <li><input type="radio" class="options" name="answerOption" value="Marvel"> Marvel</li>
+        </ul>
+      </section> 
+    <section class ="questions">    
+      <button type="submit" id="verify">Verify</button>
+      
+    </section>`;
+    
   };
 
-
+  
+    
 
   function renderQuestion(id){
       console.log('renderQuestion ran');
       const questionString = generateQuestion(id);
       //insert into DOM
      $('.js-questions').removeClass('offer-to-start-quiz');
-      $('.js-questions').replaceWith(questionString);
+     $('.js-questions').replaceWith(questionString);
+     checkAnswer(id);
   }
  
+/*function renderSelection(){
+$('#quizzlet').on('submit', `#verify`, event => {
+  event.preventDefault();
+  console.log('`renderSelect` ran');
+
+  });
+};*/
 
 //function that checks the answer and shows button to select the next question. 
-function checkAnswer() {
-    $('.content').on('click', `#verify`, event => {
-      event.preventDefault();
-      console.log('`checkAnswer` ran');
-    // const thisItem = getItemIdFromElement(event.currentTarget);
-    //  const theQuestion = QUESTIONS.find(item => item.number === id);
-      
+function checkAnswer(id) {
+   $('#quizzlet').on('click', `#verify`, event => {
+     event.preventDefault();
+     console.log('`checkAnswer` ran');
+    const thisGuess = $("input[name='answerOption']:checked").val();
+    const theQuestion = QUESTIONS.find(item => item.number === id);
+    console.log(thisGuess); 
+    console.log(theQuestion); 
+   // generateAnswer(thisGuess, theQuestion);
+    renderAnswer(thisGuess, theQuestion);
     });
-  //  generateAnswer(thisItem, theQuestion);
-  }
+  
+ }
 
 
 //Post the answer and next button
-function generateAnswer(thisItem, theQuestion){
-    console.log('`postAnswer` ran');
-      if(thisItem === theQuestion.answer){
+function generateAnswer(thisGuess, theQuestion){
+    console.log('`generateAnswer` ran');
+    console.log(thisGuess); 
+    console.log(theQuestion.answer); 
+      if(thisGuess === theQuestion.answer){
       return `<span>You Are correct!     
       </span>`;
       }
@@ -90,14 +109,15 @@ function generateAnswer(thisItem, theQuestion){
           return `<span> You are incorrect.
           The correct asnwer is ${theQuestion.answer} </span>`;
       }
+     
   };
 
 
-  function renderAnswer(){
+  function renderAnswer(thisGuess, theQuestion){
       console.log('`renderAnswer` ran');
-      const answerString = generateAnswer(thisItem, theQuestion);
+      const answerString = generateAnswer(thisGuess, theQuestion);
       //insert into DOM
-      $('js-questions').replaceWIth(answerString);
+      $('.js-questions').replaceWith(answerString);
   }
 
 
