@@ -5,7 +5,7 @@
     background-image: url("https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?cs=srgb&dl=astrology-astronomy-background-image-956981.jpg&fm=jpg");
     font-size: 24px;
     color: white;
- 
+    
   
     
   }
@@ -54,16 +54,19 @@
     padding-top: 20px;
     padding-bottom: 20px;
     text-align: center;
+    
   }
 
   .questions {
     display: block;
     align-items: left;
+    
+    justify-content: left;
     padding-bottom: 20px;
-    padding-top: 20px;
+    
   }
 
-.verify, .next {
+#verify, .next {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,7 +87,9 @@
     /*margin: 5px;*/
   } 
 
-  
+  ul {
+    list-style: none;
+  }
 
   .answers {
     background-color: #364570;
