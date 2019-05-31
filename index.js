@@ -37,7 +37,7 @@ function handleStart(){
 //function that shows the question
 function generateQuestion(id){
   //need to add 1 each time
-    
+   
     console.log('generateQuestion ran');
     const theQuestion = QUESTIONS.find(item => item.number === id);
     console.log(theQuestion);
@@ -52,44 +52,52 @@ function generateQuestion(id){
         <li><input type="radio" class="options" name="answerOption" value="LOTR"> Lord of the Rings</li>
         <li><input type="radio" class="options" name="answerOption" value="Marvel"> Marvel</li>
         </ul>
-      </section> 
-    <section class ="questions">    
-      <button type="submit" id="verify">Verify</button>
-      
-    </section>`;
+      </section> `;
     
   };
 
-  
+  function generateVerifyButton(){
+    console.log('`generateVerifyButton` ran');
+    return `
+    <section class="js-buttons verify">
+    <button type ="submit" id="verify">Verify</button>
+    </section>`;
+  };
     
 
   function renderQuestion(id){
       console.log('renderQuestion ran');
       const questionString = generateQuestion(id);
+      const verifyButton = generateVerifyButton();
       //insert into DOM
      $('.js-questions').removeClass('offer-to-start-quiz');
      $('.js-questions').replaceWith(questionString);
+     $('.js-questions').append(verifyButton);
      checkAnswer(id);
   }
  
-/*function renderSelection(){
-$('#quizzlet').on('submit', `#verify`, event => {
-  event.preventDefault();
-  console.log('`renderSelect` ran');
+  function renderNextQuestion(id){
+    console.log('renderQuestion ran');
+    const questionString = generateQuestion(id);
+    const verifyButton = generateVerifyButton();
+    //insert into DOM
+   $('#quizzlet').removeClass('next-question');
+   $('.js-questions').replaceWith(questionString);
+   $('.js-questions').append(verifyButton);
+   checkAnswer(id);
+}
 
-  });
-};*/
 
 //function that checks the answer and shows button to select the next question. 
 function checkAnswer(id) {
+  
    $('#quizzlet').on('click', `#verify`, event => {
      event.preventDefault();
      console.log('`checkAnswer` ran');
     const thisGuess = $("input[name='answerOption']:checked").val();
     const theQuestion = QUESTIONS.find(item => item.number === id);
     console.log(thisGuess); 
-    console.log(theQuestion); 
-   // generateAnswer(thisGuess, theQuestion);
+    console.log(theQuestion);
     renderAnswer(thisGuess, theQuestion);
     });
   
@@ -99,27 +107,61 @@ function checkAnswer(id) {
 //Post the answer and next button
 function generateAnswer(thisGuess, theQuestion){
     console.log('`generateAnswer` ran');
-    console.log(thisGuess); 
-    console.log(theQuestion.answer); 
+    
       if(thisGuess === theQuestion.answer){
-      return `<span>You Are correct!     
+      return `
+      <section class ="js-questions questions answers" id="answer">
+      <span>You Are correct!     
       </span>`;
       }
       else {
-          return `<span> You are incorrect.
-          The correct asnwer is ${theQuestion.answer} </span>`;
+          return `<section class ="js-questions questions answers" id="answer">
+          <span> You are incorrect.</span>
+          <span>The correct asnwer is ${theQuestion.answer} </span>`;
       }
      
   };
 
+  function nextButton(){
+    return `<section class ="next-question">    
+    <button type="submit" id="next">Next Question</button>
+    </section>`
+
+  }
+
+
+  function finalScore(){
+    return `<section class="js-buttons questions">
+    <button type="submit" id="final">Check Your Final Score</button>
+    </section>`
+  }
 
   function renderAnswer(thisGuess, theQuestion){
       console.log('`renderAnswer` ran');
       const answerString = generateAnswer(thisGuess, theQuestion);
+
       //insert into DOM
-      $('.js-questions').replaceWith(answerString);
+      $('#answer').remove()
+      $('.js-questions').prepend(answerString);
+      const count = theQuestion.number;
+      if(count < 11){
+      $('.js-buttons').replaceWith(nextButton);
+      } else {
+       $('.js-buttons').replaceWith(finalScore); 
+      };
+      const nextId = count + 1;
+      questionPrep(nextId);
+      
   }
 
+function questionPrep(nextId){
+  $('#quizzlet').on('click', `#next`, event => {
+    event.preventDefault();
+    console.log('`questionPrep` ran');
+    renderNextQuestion(nextId); 
+  
+  });
+}
 
 
 
