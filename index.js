@@ -17,8 +17,6 @@ const QUESTIONS = [
 const RIGHT = [    
 ];
 
-const WRONG =[  
-];
 
 //start the quiz
 function handleStart(){
@@ -37,7 +35,7 @@ function generateQuestion(id){
     console.log(theQuestion);   
     return `
     <section class ="js-questions questions">
-        <h4>Question <span id="js-question-number">${theQuestion.number}</span></h4>
+        <h4>Question <span id="js-question-number">${theQuestion.number}</span> of 10.</h4>
         <p>${theQuestion.name}</p>
         <ul>
         <li><input type="radio" class="options" name="answerOption" id="answerOption1" value="Star Wars"> Star Wars</li>
@@ -72,12 +70,11 @@ function generateQuestion(id){
     console.log('renderQuestion ran');
     const questionString = generateQuestion(id);
     const verifyButton = generateVerifyButton();
-    const myProgress =generateProgress();
+
     //insert into DOM
    $('#quizzlet').removeClass('next-question');
    $('.js-questions').replaceWith(questionString);
    $('.js-questions').append(verifyButton);
-   //$('.js-questions').append(myProgress);
    checkAnswer(id);
 }
 
@@ -104,8 +101,7 @@ function generateAnswer(thisGuess, theQuestion){
       return `<section class ="js-questions questions answers" id="answer">
       <span>You Are correct!</span>`;
       }
-      else {
-         
+      else {  
           return `<section class ="js-questions questions answers" id="answer">
           <span>You are incorrect.</span>
           <span>The correct asnwer is ${theQuestion.answer}. ${theQuestion.Link} </span>`;
@@ -121,7 +117,7 @@ function generateAnswer(thisGuess, theQuestion){
       $('#answer').remove()
       $('.js-questions').prepend(answerString);
       const count = theQuestion.number;
-      if(count < 11){
+      if(count < 10){
       $('.js-buttons').replaceWith(nextButton);
       } else {
        $('.js-buttons').replaceWith(finalScore); 
@@ -143,16 +139,9 @@ function questionPrep(nextId){
 function generateProgress(number){
   $('.progress').remove();
   const currentCorrect = RIGHT.length;
-  const total = number;
-  console.log('correct =' )
-  console.log(currentCorrect);
-  console.log('total =')
-  console.log(total);
-  const percentage = currentCorrect/total * 100;
   console.log('`generateProgress` ran');
   return `<section class ="progress">
   <p>Question <span class="js-question-number">${currentCorrect}</span> of 10.</p>
-  <p>So far you have gotten <span class="js-question-percentage">${percentage}</span>% correct.</p>
   </section>`;
 
 };
@@ -167,15 +156,25 @@ function renderProgress(number){
 function nextButton(){
   return `<section class ="next-question">    
   <button type="submit" id="next">Next Question</button>
-  </section>`
-
-}
+  </section>`;
+};
 
 function finalScore(){
   return `<section class="js-buttons questions">
   <button type="submit" id="final">Check Your Final Score</button>
-  </section>`
+  </section>`;
+};
+
+function finalFeedback() { 
+  $('#quizzlet').on('click', `#final`, event => {
+    event.preventDefault();
+    console.log('`finalFeedback` ran');
+    $('.js-questions').remove();
+    renderProgress(10); 
+   }); 
 }
+
+
 
 //Don't let people change the answer after they are corrected. 
 function disable() {
