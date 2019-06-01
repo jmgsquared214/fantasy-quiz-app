@@ -47,10 +47,10 @@ function generateQuestion(id){
         <h4>Question <span id="js-question-number">${theQuestion.number}</span></h4>
         <p>${theQuestion.name}</p>
         <ul>
-        <li><input type="radio" class="options" name="answerOption" value="Star Wars"> Star Wars</li>
-        <li><input type="radio" class="options" name="answerOption" value="Star Trek"> Star Trek</li>
-        <li><input type="radio" class="options" name="answerOption" value="LOTR"> Lord of the Rings</li>
-        <li><input type="radio" class="options" name="answerOption" value="Marvel"> Marvel</li>
+        <li><input type="radio" class="options" id="answerOption1" value="Star Wars"> Star Wars</li>
+        <li><input type="radio" class="options" id="answerOption2" value="Star Trek"> Star Trek</li>
+        <li><input type="radio" class="options" id="answerOption3" value="LOTR"> Lord of the Rings</li>
+        <li><input type="radio" class="options" id="answerOption4" value="Marvel"> Marvel</li>
         </ul>
       </section> `;
     
@@ -99,6 +99,8 @@ function checkAnswer(id) {
     console.log(thisGuess); 
     console.log(theQuestion);
     renderAnswer(thisGuess, theQuestion);
+    disable();
+    
     });
   
  }
@@ -134,6 +136,17 @@ function generateAnswer(thisGuess, theQuestion){
     return `<section class="js-buttons questions">
     <button type="submit" id="final">Check Your Final Score</button>
     </section>`
+  }
+
+  function disable() {
+    document.getElementById("answerOption1").disabled = true;
+    document.getElementById("answerOption2").disabled = true;
+    document.getElementById("answerOption3").disabled = true;
+    document.getElementById("answerOption4").disabled = true;
+  }
+  
+  function undisable() {
+    document.getElementById("answerOption").disabled = false;
   }
 
   function renderAnswer(thisGuess, theQuestion){
