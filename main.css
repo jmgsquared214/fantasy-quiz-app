@@ -120,14 +120,14 @@ a:hover {
   
 @media screen and (min-width: 500px){
   /*sizing tablets small laptops*/
-section, .questions, .next-question {
+section, .questions {
   width: 60%; 
 }
 }
 
 @media screen and (min-width: 800px){
   /*sizing tablets and desktop*/
-section, .questions, .next-question {
+section, .questions{
   width: 33%; 
 }
 }
