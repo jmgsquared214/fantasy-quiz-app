@@ -2,8 +2,8 @@
 
 const QUESTIONS = [
 
-  {number: 1,  name: "Q: Andoria", answer: "Star Trek", Link: "<a href='https://memory-alpha.fandom.com/wiki/Andoria'target='_blank'> Want proof? </a>"},
-  {number: 2,  name: "Q: Salacious Crumb ", answer: "Star Wars", Link: "<a href='https://starwars.fandom.com/wiki/Salacious_B._Crumb' target='_blank'> Want proof? </a>"},
+  {number: 1, name: "Q: Andoria", answer: "Star Trek", Link: "<a href='https://memory-alpha.fandom.com/wiki/Andoria'target='_blank'> Want proof? </a>"},
+  {number: 2, name: "Q: Salacious Crumb ", answer: "Star Wars", Link: "<a href='https://starwars.fandom.com/wiki/Salacious_B._Crumb' target='_blank'> Want proof? </a>"},
   {number: 3, name: "Q: Xemnu",  answer: "Marvel", Link: "<a href='https://marvel.fandom.com/wiki/Xemnu_(Earth-616)' target='_blank'>Want proof? </a>"},
   {number: 4, name: "Q: Sarlaac",  answer: "Star Wars", Link: "<a href='https://starwars.fandom.com/wiki/Sarlacc' target='_blank'>Want proof? </a>"},
   {number: 5, name: "Q: Anduin River", answer: "LOTR", Link: "<a href='https://lotr.fandom.com/wiki/Anduin' target='_blank'>Want proof? </a>"}, 
@@ -17,13 +17,15 @@ const QUESTIONS = [
 const RIGHT = [    
 ];
 
+const WRONG = [
+];
 
 //start the quiz
 function handleStart(){
     $('#quizzlet').on('click', `#js-start`, event => {
         event.preventDefault();
         console.log('`handleStartingQuiz` ran');
-        renderQuestion(1);   
+        renderFirstQuestion();   
       });
     }
 
@@ -32,6 +34,7 @@ function generateQuestion(id){
   //need to add 1 each time
     console.log('generateQuestion ran');
     const theQuestion = QUESTIONS.find(item => item.number === id);
+    console.log('generate questions id' + id);
     console.log(theQuestion);   
     return `
     <section class ="js-questions questions">
@@ -55,41 +58,59 @@ function generateQuestion(id){
   };
     
 
-  function renderQuestion(id){
-      console.log('renderQuestion ran');
-      const questionString = generateQuestion(id);
+  function renderFirstQuestion(){
+      console.log('renderFirstQuestion ran');
+      const questionString = generateQuestion(1);
       const verifyButton = generateVerifyButton();
       //insert into DOM
      $('.js-questions').removeClass('offer-to-start-quiz');
      $('.js-questions').replaceWith(questionString);
      $('.js-questions').append(verifyButton);
-     checkAnswer(id);
+     checkAnswer(1);
   }
  
-  function renderNextQuestion(id){
+  function renderNextQuestion(nextId){
     console.log('renderQuestion ran');
-    const questionString = generateQuestion(id);
+    const questionString = generateQuestion(nextId);
     const verifyButton = generateVerifyButton();
 
     //insert into DOM
    $('#quizzlet').removeClass('next-question');
    $('.js-questions').replaceWith(questionString);
    $('.js-questions').append(verifyButton);
-   checkAnswer(id);
+   checkAnswer(nextId);
 }
+
+// loop through an array of objects and find the objects that matches the name key
+function findByNumber(id){
+  for (let i=0; i < QUESTIONS.length; i++){
+    if (QUESTIONS[i].number === id){
+      return QUESTIONS[i];
+    }
+  }
+}
+
 
 //function that checks the answer and shows button to select the next question then posts the status. 
 function checkAnswer(id) { 
    $('#quizzlet').on('click', `#verify`, event => {
      event.preventDefault();
      console.log('`checkAnswer` ran');
-     const thisGuess = $("input[name='answerOption']:checked").val();
-     const theQuestion = QUESTIONS.find(item => item.number === id);
+     let thisGuess = null;
+     let theQuestion = null;
+     console.log('guess after null '+ thisGuess);
+     console.log('the Question variable prior to loading it' + theQuestion);
+     thisGuess = $("input[name='answerOption']:checked").val();
+     //theQuestion =$.grep(QUESTIONS, function(item){ return item.number === id;});
+     //theQuestion = QUESTIONS.find(item => item.number === id);
+     //attempting to use a separate function to try to limit the redudant runs. 
+     theQuestion = findByNumber(id);
+     console.log(id);
      console.log(thisGuess); 
      console.log(theQuestion);
      renderAnswer(thisGuess, theQuestion);
      disable(); 
-     renderProgress(theQuestion.number); 
+     renderProgress(); 
     }); 
  }
 
@@ -98,11 +119,12 @@ function generateAnswer(thisGuess, theQuestion){
     console.log('`generateAnswer` ran'); 
       if(thisGuess === theQuestion.answer){
       RIGHT.push(theQuestion.number); 
-      return `<section class ="js-questions questions answers" id="answer">
+      return `<section class ="js-questions answers" id="answer">
       <span>You Are correct!</span>`;
       }
-      else {  
-          return `<section class ="js-questions questions answers" id="answer">
+      else if(thisGuess !== theQuestion.answer) {  
+        WRONG.push(theQuestion.number);
+          return `<section class ="js-questions answers" id="answer">
           <span>You are incorrect.</span>
           <span>The correct asnwer is ${theQuestion.answer}. ${theQuestion.Link} </span>`;
       };    
@@ -122,8 +144,12 @@ function generateAnswer(thisGuess, theQuestion){
       } else {
        $('.js-buttons').replaceWith(finalScore); 
       };
-      const nextId = count + 1;
-      questionPrep(nextId);    
+      let nextId = (count + 1);
+      console.log('print the next id');
+      console.log(nextId);
+      questionPrep(nextId); 
+      
+      
   }
 
   //attach the listener 
@@ -132,25 +158,29 @@ function questionPrep(nextId){
     event.preventDefault();
     console.log('`questionPrep` ran');
     renderNextQuestion(nextId); 
+    
+    
   });
 }
 
 //calculate the correct score and percentage score the run them through render. 
-function generateProgress(number){
-  $('.progress').remove();
+function generateProgress(){
   const currentCorrect = RIGHT.length;
+  const currentWrong = WRONG.length;
+  
   console.log('`generateProgress` ran');
   return `<section class ="progress">
-  <p>Question <span class="js-question-number">${currentCorrect}</span> of 10.</p>
+  <p>You currently have <span class="js-question-number">${currentCorrect}</span> and ${currentWrong}.</p>
   </section>`;
-
+  
+  
 };
 
-function renderProgress(number){
+function renderProgress(){
   console.log('`renderProgress` ran');
-  console.log(generateProgress());
-  const myProgress = generateProgress(number);
-  $('#quizzlet').after(myProgress);
+  $('.progress').remove();
+  const myProgress = generateProgress();
+  $('#quizzlet').append(myProgress);
 };
 
 function nextButton(){
@@ -160,7 +190,7 @@ function nextButton(){
 };
 
 function finalScore(){
-  return `<section class="js-buttons questions">
+  return `<section class="js-buttons next-question">
   <button type="submit" id="final">Check Your Final Score</button>
   </section>`;
 };
@@ -196,4 +226,4 @@ function handleQuiz(){
     
 }
 
-$(handleQuiz);
+$(handleQuiz());

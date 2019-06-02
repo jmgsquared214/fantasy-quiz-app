@@ -66,7 +66,7 @@
     
   }
 
- #verify, #next, #final {
+ .next-question, .verify, #verify, #next, #final {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,9 +82,9 @@
     flex-direction: column;
     align-items: center;
     
-    background-color: rgba(37, 40, 73, 0.397);
-    /*padding: 5px;*/
-    /*margin: 5px;*/
+    background-color: rgba(37, 40, 73, 0.397);*/
+    padding: 5px;
+    margin: 5px;
   } 
 
   ul {
@@ -105,10 +105,12 @@ a:hover {
   color: gold;
 }
 
-  .answers {
+  .answers  {
     background-color: #364570;
     width: 100%;
     text-align: center;
+    align-items: center;
+    padding-bottom:none;
   }
 
   /*media sizing full screen
