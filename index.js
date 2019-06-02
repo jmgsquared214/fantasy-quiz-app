@@ -76,6 +76,7 @@ function generateQuestion(id){
 
     //insert into DOM
    $('#quizzlet').removeClass('next-question');
+   $('.js-questions').empty();
    $('.js-questions').replaceWith(questionString);
    $('.js-questions').append(verifyButton);
    checkAnswer(nextId);
@@ -123,7 +124,7 @@ function generateAnswer(thisGuess, theQuestion){
       return `<section class ="js-questions answers" id="answer">
       <span>You Are correct!</span>`;
       }
-      else if(thisGuess !== theQuestion.answer) {  
+      else if(thisGuess != theQuestion.answer) {  
         WRONG.push(theQuestion.number);
         console.log('WRONG array currently consists of ' + WRONG); 
           return `<section class ="js-questions answers" id="answer">
