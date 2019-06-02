@@ -118,12 +118,14 @@ function checkAnswer(id) {
 function generateAnswer(thisGuess, theQuestion){
     console.log('`generateAnswer` ran'); 
       if(thisGuess === theQuestion.answer){
-      RIGHT.push(theQuestion.number); 
+      RIGHT.push(theQuestion.number);
+      console.log('RIGHT array currently consists of ' + RIGHT); 
       return `<section class ="js-questions answers" id="answer">
       <span>You Are correct!</span>`;
       }
       else if(thisGuess !== theQuestion.answer) {  
         WRONG.push(theQuestion.number);
+        console.log('WRONG array currently consists of ' + WRONG); 
           return `<section class ="js-questions answers" id="answer">
           <span>You are incorrect.</span>
           <span>The correct asnwer is ${theQuestion.answer}. ${theQuestion.Link} </span>`;
